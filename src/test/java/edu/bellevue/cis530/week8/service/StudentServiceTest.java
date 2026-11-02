@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,14 +26,13 @@ public class StudentServiceTest {
 
     @InjectMocks
     private StudentServiceImpl studentService;
-
-    private static StudentProfile profile;
     private static Student student;
 
 
     @BeforeEach
     void init()
     {
+        StudentProfile profile;
         profile = StudentProfile.builder()
                 .id(1L)
                 .address("123 main street")
@@ -100,9 +98,8 @@ public class StudentServiceTest {
         Long searchId = 99L;
         when(studentRepository.findById(searchId)).thenThrow(new ResourceNotFoundException("Couldnt find student with id: " + searchId));
 
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
-            studentService.getStudentById(searchId);
-        });
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
+                () -> studentService.getStudentById(searchId));
 
         assertEquals("Couldnt find student with id: 99", exception.getMessage());
     }

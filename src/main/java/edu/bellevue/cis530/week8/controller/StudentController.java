@@ -51,7 +51,7 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudentById(@PathVariable Long id) {
         studentService.deleteStudentById(id);
-        return ResponseEntity.ok().body("Delete student with id " + id);
+        return ResponseEntity.noContent().build();
     }
 
     // get profile by student id
